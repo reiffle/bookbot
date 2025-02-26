@@ -1,0 +1,45 @@
+def main():
+
+    book_path="books/frankenstein.txt"
+    book_text=get_text(book_path)
+    lowered_book = book_text.lower()
+    char_dict=charcount(lowered_book)
+    print(f"--- Begin report of {book_path} ---")
+    print(f"{wordcount(book_text)} words found in the document")
+    print() # Empty line
+    new_list=reverse(char_dict)
+    for entry in new_list:
+        print(f"The {entry['char']} character was found {entry['num']} times")
+    print("--- End report ---")
+      
+
+def wordcount(text):
+    words = len(text.split())
+    return words
+
+def charcount(text):
+    dictionary = {}
+    for x in text:
+        lower = x.lower()
+        if lower in dictionary:
+            dictionary[lower]+=1
+        else:
+            dictionary[lower]=1
+    return dictionary
+
+def getnum(num):
+    return num["num"]
+
+def reverse(dictionary):
+    sorted_list=[]
+    for char in dictionary:
+        if char.isalpha():
+            sorted_list.append({"char":char, "num":dictionary[char]})
+        sorted_list.sort(reverse=True, key=getnum)
+    return sorted_list  
+
+def get_text(path):
+    with open(path) as f:
+	    return f.read()
+         
+main()
