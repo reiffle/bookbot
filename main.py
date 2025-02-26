@@ -1,6 +1,11 @@
-def main():
+import sys
+from stats import wordcount
 
-    book_path="books/frankenstein.txt"
+def main():
+    if len(sys.argv) < 2:
+        print ("Usage: python 3 main.py <path_to_book>")
+        sys.exit(1)
+    book_path=sys.argv[1]
     book_text=get_text(book_path)
     lowered_book = book_text.lower()
     char_dict=charcount(lowered_book)
@@ -10,13 +15,8 @@ def main():
     new_list=reverse(char_dict)
     new_list.sort(reverse=True)
     for entry in new_list:
-        print(f"The '{entry[1]}' character was found {entry[0]} times")
+        print(f"{entry[1]}: {entry[0]}")
     print("--- End report ---")
-      
-
-def wordcount(text):
-    words = len(text.split())
-    return words
 
 def charcount(text):
     dictionary = {}
